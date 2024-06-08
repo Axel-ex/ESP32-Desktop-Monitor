@@ -17,5 +17,6 @@ fn main() {
         device_state.display_date();
         device_state.display_temperature();
         device_state.flush_display();
+        FreeRtos::delay_ms(5000);
     }
 }

@@ -16,7 +16,7 @@ use esp_idf_svc::hal::{
     peripherals::Peripherals,
     units::Hertz,
 };
-use esp_idf_svc::sntp;
+use esp_idf_svc::sntp::{EspSntp, SyncStatus};
 use esp_idf_svc::wifi::{BlockingWifi, EspWifi};
 use log;
 use sh1106::{prelude::*, Builder};
@@ -30,12 +30,20 @@ pub struct DeviceState<'a> {
     dht_pin: PinDriver<'a, Gpio27, InputOutput>,
     led: PinDriver<'a, Gpio2, Output>,
     wifi: BlockingWifi<EspWifi<'a>>,
+    sntp: EspSntp<'a>,
 }
 
 impl<'a> DeviceState<'a> {
     pub fn new() -> Result<Self> {
         let p = Peripherals::take().unwrap();
 
+        // let sda = p.pins.gpio21;
+        // let scl = p.pins.gpio22;
+        // let config = I2cConfig::new().baudrate(Hertz(100_000)).into();
+        // let i2c = I2cDriver::new(p.i2c0, sda, scl, &config)?;
+        // let mut display: GraphicsMode<I2cInterface<I2cDriver>> =
+        //     Builder::new().connect_i2c(i2c).into();
+        // display.init().unwrap();
         let display = Self::init_display(p.i2c0, p.pins.gpio21, p.pins.gpio22)?;
 
         let mut dht_pin = PinDriver::input_output_od(p.pins.gpio27)?;
@@ -46,11 +54,20 @@ impl<'a> DeviceState<'a> {
         let mut wifi = wifi_init(p.modem)?;
         wifi_connect(&mut wifi)?;
 
+        //sntp
+        let sntp = EspSntp::new_default().unwrap();
+        log::info!("SNTP initialized, waiting for status!");
+
+        while sntp.get_sync_status() != SyncStatus::Completed {}
+
+        log::info!("SNTP status received!");
+
         Ok(DeviceState {
             display,
             dht_pin,
             led,
             wifi,
+            sntp,
         })
     }
 
@@ -59,13 +76,11 @@ impl<'a> DeviceState<'a> {
         sda: Gpio21,
         scl: Gpio22,
     ) -> Result<GraphicsMode<I2cInterface<I2cDriver<'a>>>> {
-        let sda = sda;
-        let scl = scl;
         let config = I2cConfig::new().baudrate(Hertz(100_000)).into();
         let i2c = I2cDriver::new(i2c0, sda, scl, &config)?;
         let mut display: GraphicsMode<I2cInterface<I2cDriver>> =
             Builder::new().connect_i2c(i2c).into();
-        display.init().unwrap();
+        display.init().expect("fail to init display");
 
         Ok(display)
     }
@@ -79,17 +94,17 @@ impl<'a> DeviceState<'a> {
     }
 
     pub fn display_layout(&mut self) {
-        Rectangle::with_corners(Point::new(0, 0), Point::new(0 + 64, 0 + 32))
+        Rectangle::with_corners(Point::new(0, 0), Point::new(64, 32))
             .into_styled(PrimitiveStyle::with_stroke(BinaryColor::On, 1))
             .draw(&mut self.display)
             .unwrap();
 
-        Rectangle::with_corners(Point::new(64, 0), Point::new(64 + 63, 0 + 32))
+        Rectangle::with_corners(Point::new(64, 0), Point::new(64 + 63, 32))
             .into_styled(PrimitiveStyle::with_stroke(BinaryColor::On, 1))
             .draw(&mut self.display)
             .unwrap();
 
-        Rectangle::with_corners(Point::new(0, 32), Point::new(0 + 127, 32 + 31))
+        Rectangle::with_corners(Point::new(0, 32), Point::new(127, 32 + 31))
             .into_styled(PrimitiveStyle::with_stroke(BinaryColor::On, 1))
             .draw(&mut self.display)
             .unwrap();
@@ -97,13 +112,6 @@ impl<'a> DeviceState<'a> {
 
     pub fn display_date(&mut self) {
         let text_style = MonoTextStyle::new(&FONT_6X10, BinaryColor::On);
-
-        let sntp = sntp::EspSntp::new_default().unwrap();
-        log::info!("SNTP initialized, waiting for status!");
-
-        while sntp.get_sync_status() != sntp::SyncStatus::Completed {}
-
-        log::info!("SNTP status received!");
 
         let now = time::SystemTime::now().duration_since(UNIX_EPOCH);
         match now {

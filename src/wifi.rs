@@ -13,10 +13,7 @@ pub fn wifi_init<'a>(modem: Modem) -> Result<BlockingWifi<EspWifi<'a>>, Error> {
     let sys_loop = EspSystemEventLoop::take().expect("fail taking eventloop");
     let nvs = EspDefaultNvsPartition::take().expect("fail taking nvs");
 
-    let mut wifi = BlockingWifi::wrap(
-        EspWifi::new(modem, sys_loop.clone(), Some(nvs)).expect(" no nvs"),
-        sys_loop,
-    )?;
+    let wifi = BlockingWifi::wrap(EspWifi::new(modem, sys_loop.clone(), Some(nvs))?, sys_loop)?;
 
     Ok(wifi)
 }
