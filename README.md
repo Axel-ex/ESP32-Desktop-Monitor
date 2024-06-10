@@ -82,10 +82,9 @@ Since I decided to encapsulate all initialisation logic within the new() method 
 
 # Contributing
 How to?
-
-    - Fork the repository.
-    - Make your changes.
-    - Create a pull request.
+- Fork the repository.
+- Make your changes.
+- Create a pull request.
 
 That's it! Your contributions are welcome and appreciated.
 
