@@ -90,3 +90,6 @@ How to?
     Make your changes.
     Create a pull request.
 That's it! Your contributions are welcome and appreciated.
+
+# Licence
+By contributing to this project, you agree that your contributions will be licensed under the LICENSE.
