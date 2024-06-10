@@ -29,7 +29,7 @@ embassy = ["esp-idf-svc/embassy-sync", "esp-idf-svc/critical-section", "esp-idf-
 
 [dependencies]
 log = { version = "0.4", default-features = false }
-esp-idf-svc = { version = "0.48", default-features = false }
+esp-idf-svc = { version = "0.48.1", default-features = false }
 embedded-graphics = "0.8.0"
 ssd1306 = "0.7.1"
 sh1106 = " 0.5.0"
@@ -40,6 +40,13 @@ embedded-svc = "0.27.1"
 heapless = "0.8.0"
 time                    = { version = "0.3.9", features = ["std", "macros"]}
 chrono = "0.4.38"
+chrono-tz = "0.5"
+num-traits = "0.2.19"
+dotenv = "0.15.0"
 
 [build-dependencies]
 embuild = "0.31.3"
+
+[env]
+WIFI_SSID="MEO-BD8310"
+WIFI_PASSWORD="9f24731014"

@@ -12,11 +12,14 @@ fn main() {
     });
 
     loop {
+        device_state.led_on();
         device_state.clear_display();
         device_state.display_layout();
-        device_state.display_date();
+        device_state.display_time();
         device_state.display_temperature();
+        device_state.display_wifi_info();
         device_state.flush_display();
-        FreeRtos::delay_ms(5000);
+        device_state.led_off();
+        FreeRtos::delay_ms(1000);
     }
 }
