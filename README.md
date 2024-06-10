@@ -78,19 +78,15 @@ Since I decided to encapsulate all initialisation logic within the new() method 
 - esp_idf API reference (C): https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/index.html
 - youtube channels: 
 	- with std: https://www.youtube.com/@floodplainnl
-Y,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
 	- No std: https://www.youtube.com/@therustybits, https://www.youtube.com/@LowLevelLearning
 
 # Contributing
 How to?
-    Fork the repository.
-    Make your changes.
-    Create a pull request.
+
+    - Fork the repository.
+    - Make your changes.
+    - Create a pull request.
+
 That's it! Your contributions are welcome and appreciated.
 
 # Licence
