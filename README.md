@@ -1,5 +1,7 @@
-# Rust Desktop monitor
-Small clock, temperature / humidity / wifi signal monitor using esp_idf_svc framework to program ESP32 with Rust!
+# ESP32 desktop monitor 
+Clock, temperature / humidity / wifi signal monitor using esp_idf_svc framework to program ESP32 with Rust!
+
+![Alt Text](demo.jpg)
 
 # Prerequisites
 ### Software
@@ -9,7 +11,7 @@ Once install you should be able to run
 ```shell
 cargo generate esp-rs/esp-idf-template cargo
 ```
-This command will prompt you for some informations regarding the architecture of the ESP32 you are using and will set project configuration accordingly (toolchain, dependencies...). If everything is configurated like it should, connect your board to the serial port and simply run:
+This command will prompt you for some informations regarding the architecture of the ESP32 you are using and will set project configuration accordingly (toolchain, dependencies...). You can now copy the sources and the cargo.toml in your own directory. If you are using the same hardware as me, ignore the previous step and simply clone this repository. If everything is configurated like it should, connect your board to the serial port and simply run:
 
 ```shell
 cargo run
@@ -20,7 +22,7 @@ cargo run
 For this project i am using:
 - ESP32 DevkitV1 (ESP32 in esp-idf-template).
 - DHT22 Temperature / Humidity Sensor
-- 128 * 64 OLED SH1106 OLED display.
+- 128 * 64 OLED SH1106 OLED display.:walktrough
 
 OLED display: vcc(3v3), gnd(gnd), sda(pin21), sck(pin22)
 

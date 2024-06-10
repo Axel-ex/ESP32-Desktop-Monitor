@@ -11,8 +11,8 @@ use heapless::String;
 use log::info;
 
 const SCREEN_WIDTH: u32 = 128;
-pub const WIFI_SSID: &str = "MEO-BD8310";
-const WIFI_PASSWORD: &str = "9f24731014";
+pub const WIFI_SSID: &str = "YOUR SSID";
+const WIFI_PASSWORD: &str = "YOUR PASSWORD";
 
 /// Tracks the wifi signal by storing the results of the wifi scan to further draw them on screen.
 /// keep also track of the current x pos on screen and wraps it to SCREEN_WIDTH.

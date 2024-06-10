@@ -138,7 +138,7 @@ impl DeviceState {
         info!("current time: {:?}", time);
 
         // Draw the time on the display without seconds
-        Text::new(&time[..5], Point::new(12, 17), TEXT_STYLE)
+        Text::new(&time[..5], Point::new(18, 17), TEXT_STYLE)
             .draw(&mut self.display)
             .unwrap();
     }
