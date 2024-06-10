@@ -2,3 +2,6 @@
 /.embuild
 /target
 /Cargo.lock
+.gitignore
+README_PERSONAL.md
+.github/workflows
