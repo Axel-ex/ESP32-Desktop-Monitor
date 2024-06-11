@@ -1,12 +1,12 @@
 # ESP32 desktop monitor 
-Clock, temperature / humidity / wifi signal monitor using esp_idf_svc framework to program ESP32 with Rust!
+Clock, temperature / humidity / wifi signal monitor using esp_idf_svc framework to program ESP32 with Rust! this project relies essentially on esp_idf_svc crate, which provide wrapper functions around esp_idf services (written in C) to interface with ESP boards. Rust give the ability to the user to confidently develop memory / thread safe code and to catch any potential issues at compile time thanks to the static analysis (type checking, burrow checker, pattern matching...). Sounds like the dream of many devs, right?  
 
 ![Alt Text](demo.jpg)
 
 # Prerequisites
 ### Software
 
-To build this project, you will need a few resources installed on your machine. A clear walktrough of the dependencies to install can be found here: https://github.com/esp-rs/esp-idf-template?tab=readme-ov-file#prerequisites. You want to make sure that rustup (toolchain installer) and cargo (rust package manager) are installed.
+To build this project, you will need a few resources installed on your machine. A clear walkthrough of the dependencies to install can be found here: https://github.com/esp-rs/esp-idf-template?tab=readme-ov-file#prerequisites. You want to make sure that rustup (toolchain installer) and cargo (rust package manager) are installed.
 Once install you should be able to run
 ```shell
 cargo generate esp-rs/esp-idf-template cargo
@@ -60,9 +60,9 @@ Initializes the OLED display. the process first involves creating an I2c configu
 - **scl**: The pin for the I2C serial clock line.
 
 #### `DeviceState::sync_sntp()`
-Synchronizes the device's internal clock with an SNTP (Simple Network Time Protocol) server.
+Synchronizes the device's internal clock with an SNTP (Simple Network Time Protocol) server. This operation is needed since the esp doesnt have any Real Time Clock module built-in and is unable to assess time by itself.
 
-#### `DeviceState::display_wifi_info()`
+#### `DeviceState::draw_wifi_info()`
 Scans for nearby WiFi networks, updates the WiFi signal tracker, and displays signal strength.
 - **WiFi Module:** Scans for available networks and retrieves signal strength.
 - **WiFi Signal Tracker:** Tracks WiFi signal strength over time.
