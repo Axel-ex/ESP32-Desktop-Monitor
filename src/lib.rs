@@ -106,7 +106,7 @@ impl DeviceState {
             .expect("Error occured while flushing the display");
     }
 
-    pub fn display_layout(&mut self) {
+    pub fn draw_layout(&mut self) {
         Rectangle::with_corners(
             Point::new(0, 0),
             Point::new(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2),
@@ -132,7 +132,7 @@ impl DeviceState {
         .unwrap();
     }
 
-    pub fn display_time(&mut self) {
+    pub fn draw_time(&mut self) {
         // Get the current time in the desired time zone
         let time = Local::now().with_timezone(&Lisbon).time().to_string();
         info!("current time: {:?}", time);
@@ -143,7 +143,7 @@ impl DeviceState {
             .unwrap();
     }
 
-    pub fn display_temperature(&mut self) {
+    pub fn draw_temperature(&mut self) {
         let mut delay_provider = Ets;
 
         match dht22::read(&mut delay_provider, &mut self.dht_pin) {
@@ -174,7 +174,7 @@ impl DeviceState {
         }
     }
 
-    pub fn display_wifi_info(&mut self) {
+    pub fn draw_wifi_info(&mut self) {
         let scan_result = self.wifi.wifi_mut().scan();
         let network = WIFI_SSID;
 
@@ -194,11 +194,11 @@ impl DeviceState {
                         + 32.0) as u32;
 
                     //get the current x pos and add to the vector
-                    let x = self.signal_tracker.get_x_pos();
+                    let x = self.signal_tracker.curr_x_pos();
                     self.signal_tracker.add_point(x, scaled_strength);
 
                     //print wifi signal
-                    for point in self.signal_tracker.get_points() {
+                    for point in self.signal_tracker.points() {
                         self.display.set_pixel(point.x as u32, point.y as u32, 1);
                     }
                     let avg = self.signal_tracker.get_average_strength().to_string();

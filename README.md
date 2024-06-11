@@ -6,8 +6,8 @@ Clock, temperature / humidity / wifi signal monitor using esp_idf_svc framework 
 # Prerequisites
 ### Software
 
-To build this project, you will need a few resources installed on your machine. A clear walktrough of the dependencies to install can be found here: https://github.com/esp-rs/esp-idf-template.
-Once install you should be able to run 
+To build this project, you will need a few resources installed on your machine. A clear walktrough of the dependencies to install can be found here: https://github.com/esp-rs/esp-idf-template?tab=readme-ov-file#prerequisites. You want to make sure that rustup (toolchain installer) and cargo (rust package manager) are installed.
+Once install you should be able to run
 ```shell
 cargo generate esp-rs/esp-idf-template cargo
 ```

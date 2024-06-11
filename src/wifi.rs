@@ -11,7 +11,7 @@ use heapless::String;
 use log::info;
 
 const SCREEN_WIDTH: u32 = 128;
-pub const WIFI_SSID: &str = "YOUR SSID";
+pub const WIFI_SSID: &str = "YOUR WIFI SSID";
 const WIFI_PASSWORD: &str = "YOUR PASSWORD";
 
 /// Tracks the wifi signal by storing the results of the wifi scan to further draw them on screen.
@@ -47,7 +47,7 @@ impl WifiSignalTracker {
     }
 
     //Get the underlying vector of points
-    pub fn get_points(&self) -> &[Point] {
+    pub fn points(&self) -> &[Point] {
         &self.points
     }
 
@@ -57,7 +57,7 @@ impl WifiSignalTracker {
         self.curr_x_pos = (self.curr_x_pos + 1) % SCREEN_WIDTH;
     }
 
-    pub fn get_x_pos(&mut self) -> u32 {
+    pub fn curr_x_pos(&mut self) -> u32 {
         self.curr_x_pos
     }
 
@@ -72,16 +72,14 @@ impl WifiSignalTracker {
     }
 
     pub fn print_points(&self) {
-        for point in &self.points {
-            println!("Point - x: {}, y: {}", point.x, point.y);
-        }
+        println!("{:#?}", self.points);
     }
 }
 
 /// Initialize the WiFi network.
 pub fn wifi_init<'a>(modem: Modem) -> Result<BlockingWifi<EspWifi<'a>>> {
-    let sys_loop = EspSystemEventLoop::take().expect("fail taking eventloop");
-    let nvs = EspDefaultNvsPartition::take().expect("fail taking nvs");
+    let sys_loop = EspSystemEventLoop::take().expect("wifi_inti: fail taking eventloop");
+    let nvs = EspDefaultNvsPartition::take().expect("wifi_init: fail taking nvs");
 
     let wifi = BlockingWifi::wrap(EspWifi::new(modem, sys_loop.clone(), Some(nvs))?, sys_loop)?;
 
