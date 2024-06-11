@@ -52,6 +52,7 @@ Initializes the device state, sets up peripherals, and provides functions for di
   - **LED:** Provides visual indication.
   - **WiFi Module:** Connects to WiFi networks and scans for signal strength.
   - **SNTP Client:** Synchronizes time with an NTP server.
+  - **Signal tracker**: keeps track of the wifi signal strength to further render it on screen  
 
 #### `DeviceState::init_display()`
 Initializes the OLED display. the process first involves creating an I2c configuration out of which we can create the I2cDriver needed for the GraphicsMode building process.
