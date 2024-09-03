@@ -22,7 +22,7 @@ cargo run
 For this project i am using:
 - ESP32 DevkitV1 (ESP32 in esp-idf-template).
 - DHT22 Temperature / Humidity Sensor
-- 128 * 64 OLED SH1106 OLED display.:walktrough
+- 128 * 64 OLED SH1106 OLED display.
 
 OLED display: vcc(3v3), gnd(gnd), sda(pin21), sck(pin22)
 
